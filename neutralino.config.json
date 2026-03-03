@@ -1,0 +1,73 @@
+{
+  "$schema": "https://raw.githubusercontent.com/neutralinojs/neutralinojs/main/schemas/neutralino.config.schema.json",
+  "applicationId": "moe.kinnnine.ocd2kki",
+  "version": "4326",
+  "applicationName": "ocd2kki",
+  "author": "kinnnine",
+  "description": "Unofficial desktop client of Yume 2kki on ynoproject.net (Yume Nikki Online Project)",
+  "copyright": "MIT License © kinnnine 2026.",
+  "defaultMode": "window",
+  "port": 0,
+  "documentRoot": "/resources/",
+  "url": "https://ynoproject.net/2kki/",
+  "enableServer": true,
+  "enableNativeAPI": true,
+  "tokenSecurity": "none",
+  "exportAuthInfo": false,
+  "logging": {
+    "enabled": false,
+    "writeToLogFile": false
+  },
+  "nativeAllowList": [
+    "app.quit",
+    "window.setTitle",
+    "window.setSize"
+  ],
+  "nativeBlockList": [
+    "filesystem.*",
+    "os.*"
+  ],
+  "modes": {
+    "window": {
+      "title": "ocd2kki",
+      "width": 817,
+      "height": 647,
+      "minWidth": 817,
+      "minHeight": 647,
+      "center": true,
+      "fullScreen": false,
+      "alwaysOnTop": false,
+      "icon": "/resources/icons/urotsuki.png",
+      "enableInspector": false,
+      "borderless": false,
+      "maximize": false,
+      "hidden": false,
+      "resizable": false,
+      "exitProcessOnClose": true,
+      "injectGlobals": true,
+      "injectClientLibrary": true,
+      "injectScript": "/resources/js/ocd.js"
+    },
+    "browser": {
+      "nativeBlockList": [
+        "filesystem.*"
+      ]
+    },
+    "chrome": {
+      "width": 817,
+      "height": 647,
+      "nativeBlockList": [
+        "filesystem.*",
+        "os.*"
+      ]
+    }
+  },
+  "cli": {
+    "binaryName": "ocd2kki",
+    "resourcesPath": "/resources/",
+    "extensionsPath": "/extensions/",
+    "clientLibrary": "/resources/js/neutralino.js",
+    "binaryVersion": "6.5.0",
+    "clientVersion": "6.5.0"
+  }
+}
