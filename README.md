@@ -27,7 +27,7 @@ ocd2kki is open-source at [https://github.com/kinnnine/ocd2kki](https://github.c
 
 - window size is cropped and fit to a game screen
 - menu buttons when hovering top of game screen
-- exit from main menu works
+- quit the game from main menu works
 
 # downside
 
