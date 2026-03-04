@@ -29,9 +29,9 @@ function ocd() {
     const accountSettingsButton = document.getElementById('accountSettingsButton');
     const loginButton = document.getElementById('loginButton');
     const logoutButton = document.getElementById('logoutButton');
-    accountSettingsButton.setAttribute('style', 'display: none;');
-    loginButton.setAttribute('style', 'display: none;');
-    logoutButton.setAttribute('style', 'display: none;');
+    accountSettingsButton.classList.add('hidden');
+    loginButton.classList.add('hidden');
+    logoutButton.classList.add('hidden');
 
     // pickup login and logout button into settingsModal
     const settingsModal = document.getElementById('settingsModal');
@@ -41,7 +41,7 @@ function ocd() {
 
     // workaround: set hidden fullscreen button
     const controlsFullscreenButton = document.getElementById('controls-fullscreen')
-    controlsFullscreenButton.setAttribute('style', 'display: none;');
+    controlsFullscreenButton.classList.add('hidden');
 
     // fix: enable the rest of right buttons (fullscreen only buttons)
     const fsBadgesButton = document.getElementById('fsBadgesButton');
@@ -62,16 +62,19 @@ function ocd() {
     // tweak: display controls when mouse hovering
     const leftControls = document.getElementById('leftControls')
     const rightControls = document.getElementById('rightControls')
-    leftControls.style.display = 'none';
-    rightControls.style.display = 'none';
+    leftControls.classList.add('hidden');
+    rightControls.classList.add('hidden');
     controls.addEventListener('mousemove', function() {
-        leftControls.style.display = 'block';
-        rightControls.style.display = 'block';
+        leftControls.classList.remove('hidden');
+        rightControls.classList.remove('hidden');
     });
     controls.addEventListener('mouseleave', function() {
-        leftControls.style.display = 'none';
-        rightControls.style.display = 'none';
+        leftControls.classList.add('hidden');
+        rightControls.classList.add('hidden');
     });
+
+    // fix: align correctly on control buttons
+    rightControls.setAttribute('style', 'display: inline;')
 
     // apply ocdGameContainer element (new of original gameContainer)
     const ocdGameContainer = document.createElement("div");
@@ -114,22 +117,22 @@ function ocd() {
                     var logoutButtonTemp = document.getElementById('logoutButton');
                     var eventControlsTemp = document.getElementById('eventControls');
                     var fsBadgesButtonTemp = document.getElementById('fsBadgesButton');
-                    accountSettingsButtonTemp.setAttribute('style', 'display: block;');
-                    loginButtonTemp.setAttribute('style', 'display: none;');
-                    logoutButtonTemp.setAttribute('style', 'display: block;');
-                    eventControlsTemp.setAttribute('style', 'display: block;');
-                    fsBadgesButtonTemp.setAttribute('style', 'display: block;');
+                    accountSettingsButtonTemp.classList.remove('hidden');
+                    loginButtonTemp.classList.add('hidden');
+                    logoutButtonTemp.classList.remove('hidden');
+                    eventControlsTemp.classList.remove('hidden');
+                    fsBadgesButtonTemp.classList.remove('hidden');
                 } else {
                     var accountSettingsButtonTemp = document.getElementById('accountSettingsButton');
                     var loginButtonTemp = document.getElementById('loginButton');
                     var logoutButtonTemp = document.getElementById('logoutButton');
                     var eventControlsTemp = document.getElementById('eventControls');
                     var fsBadgesButtonTemp = document.getElementById('fsBadgesButton');
-                    accountSettingsButtonTemp.setAttribute('style', 'display: none;');
-                    loginButtonTemp.setAttribute('style', 'display: block;');
-                    logoutButtonTemp.setAttribute('style', 'display: none;');
-                    eventControlsTemp.setAttribute('style', 'display: none;');
-                    fsBadgesButtonTemp.setAttribute('style', 'display: none;');
+                    accountSettingsButtonTemp.classList.add('hidden');
+                    loginButtonTemp.classList.remove('hidden');
+                    logoutButtonTemp.classList.add('hidden');
+                    eventControlsTemp.classList.add('hidden');
+                    fsBadgesButtonTemp.classList.add('hidden');
                 }
             }
         }
