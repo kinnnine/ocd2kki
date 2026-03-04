@@ -81,6 +81,9 @@ that's it.
 
 # roadmap
 
+- [ ] able to chat
+- [ ] toast notification
+- [ ] ocd2kki-specific settings
 - [ ] fix badges floating modal size
 - [ ] fix right menu buttons position
 - [ ] discord rpc
