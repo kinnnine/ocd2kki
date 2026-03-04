@@ -1,91 +1,87 @@
 # ocd2kki
 
-an unofficial desktop client of yume 2kki on ynoproject.net (yume nikki online project)
+An unofficial desktop client of Yume 2kki on ynoproject.net (Yume Nikki Online Project)
 
-# screenshots
+# Screenshots
 
 <img src="docs/menu.png"></br>
 <img src="docs/game.png"></br>
 <img src="docs/settings.png"></br>
 <img src="docs/expeditions.png">
 
-# how
+# How
 
-ocd2kki is using neutralinojs, by using user's available browsers or webview for displaying "[https://ynoproject.net/2kki/](https://ynoproject.net/2kki/)" and inject a custom interface for more "native-like" experience.
+ocd2kki is using NeutralinoJS, by using user's available browsers or webview for displaying "[https://ynoproject.net/2kki/](https://ynoproject.net/2kki/)" and inject a custom interface for more "native-like" experience.
 
-ocd2kki isn't hosting or stealing any ynoproject or yume 2kki developers assets or gamedata.
+ocd2kki isn't hosting or stealing any YNOproject or Yume 2kki developers assets or gamedata.
 
 ocd2kki is open-source at [https://github.com/kinnnine/ocd2kki](https://github.com/kinnnine/ocd2kki)
 
-# why
+# Why
 
-- separate from your main browser
-- native-like experience
-- lightweight download (only 3mb)
+- Separate from your main browser
+- Native-Like experience
+- Lightweight download (only 3mb)
 
-# features
+# Features
 
-- window size is cropped and fit to a game screen
-- menu buttons when hovering top of game screen
-- quit the game from main menu works
+- Window size is cropped and fit to a game screen
+- Menu buttons when hovering top of game screen
+- Quit the game from main menu works
 
-# downside
+# Build
 
-- not a truly native application, it's a desktop web app duh
-
-# build
-
-requirements:
+Requirements:
 
 - node
 - npm or pnpm
 - neutralinojs/neu
 
-install neutralinojs cli
+Install neutralinojs CLI
 ``
 npm install -g @neutralinojs/neu
 ``
 
-build release
+Build release
 ``
 ./make.sh build
 ``
 
-development run
+Development run
 ``
 ./make.sh run
 ``
 
-# history
+# History
 
-ocd2kki was originally created on nwjs but due to stupidity cloudflare turnstile won't play nicely, thanks to neutralinojs for solving this issue by replacing nw.js entirely.
+ocd2kki was originally created on NW.js but due to stupidity cloudflare turnstile won't play nicely, thanks to NeutralinoJS for solving this issue by replacing NW.js entirely.
 
-### things to point out on nwjs
+### Things to point out on NW.js
 
-- embedded with chromium, doesn't need user's system browser
+- Embedded with chromium, doesn't need user's system browser
 - iframe with nwfaketop work flawlessly, able to load any remote url
 - iframe with onload function gives you lemon
 
-### but
+### But
 
-- weird issue with useragent thingy
-- you can play just fine but unable to sign-in or even register due to cloudflare turnstile
+- Weird issue with useragent thingy
+- You can play just fine but unable to sign-in or even register due to cloudflare turnstile
 
-### what's good?
+### Any good news?
 
-- i don't need to rewrite the script since the way neutralinojs works, similar to iframe onload injection but use "injectScript" inside neutralino.config.json
-- friendship ended with nwjs's iframe, now neutralinojs with user's system webview is my best friend
-- you can now sign-in, hell yeah
+- I don't need to rewrite the script since the way NeutralinoJS works, similar to iframe onload injection but use "injectScript" inside neutralino.config.json
+- Friendship ended with NW.js iframe, now NeutralinoJS with user's system webview is my best friend
+- You can now sign-in, hell yeah
 
-that's it.
+That's it.
 
-# roadmap
+# Roadmap
 
-- [ ] able to chat
-- [ ] toast notification
+- [ ] Able to chat
+- [ ] Toast notification
 - [ ] ocd2kki-specific settings
-- [ ] fix badges floating modal size
-- [ ] fix right menu buttons position
-- [ ] discord rpc
-- [ ] supports other fangames from ynoproject
-- [ ] rewrite in rust/tauri
+- [ ] Fix badges floating modal size
+- [ ] Fix right menu buttons position
+- [ ] Discord RPC
+- [ ] Supports other fangames from YNOProject
+- [ ] Rewrite in Rust/Tauri
