@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/neutralinojs/neutralinojs/main/schemas/neutralino.config.schema.json",
   "applicationId": "moe.kinnnine.ocd2kki",
-  "version": "dev",
+  "version": "4326",
   "applicationName": "ocd2kki",
   "author": "kinnnine",
   "description": "unofficial desktop client of Yume 2kki on ynoproject.net (yume nikki online project)",
@@ -15,8 +15,8 @@
   "tokenSecurity": "none",
   "exportAuthInfo": false,
   "logging": {
-    "enabled": true,
-    "writeToLogFile": true
+    "enabled": false,
+    "writeToLogFile": false
   },
   "nativeAllowList": [
     "app.quit",
@@ -38,7 +38,7 @@
       "fullScreen": false,
       "alwaysOnTop": false,
       "icon": "/resources/icons/urotsuki.png",
-      "enableInspector": true,
+      "enableInspector": false,
       "borderless": false,
       "maximize": false,
       "hidden": false,
