@@ -1,6 +1,6 @@
 # ocd2kki
 
-an unofficial desktop client of Yume 2kki on ynoproject.net (yume nikki online project)
+an unofficial desktop client of yume 2kki on ynoproject.net (yume nikki online project)
 
 # screenshots
 
@@ -48,12 +48,12 @@ npm install -g @neutralinojs/neu
 
 build release
 ``
-neu build --embed-resources
+./make.sh build
 ``
 
 development run
 ``
-neu run
+./make.sh run
 ``
 
 # history
@@ -87,3 +87,5 @@ that's it.
 - [ ] fix badges floating modal size
 - [ ] fix right menu buttons position
 - [ ] discord rpc
+- [ ] supports other fangames from ynoproject
+- [ ] rewrite in rust/tauri
