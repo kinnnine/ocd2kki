@@ -8,7 +8,6 @@ An unofficial desktop client of Yume 2kki on ynoproject.net (Yume Nikki Online P
 # Screenshots
 
 <details>
-
 <summary>Main Menu</summary>
 
 <img src="docs/menu.png">
@@ -23,33 +22,38 @@ An unofficial desktop client of Yume 2kki on ynoproject.net (Yume Nikki Online P
 
 </details>
 
+
 <details>
 <summary>Settings (Minor UI changes)</summary>
 
-> [!NOTE]
-> Both login and logout button are moved into settings.
+Both login and logout button are moved into settings.
 
 <img src="docs/settings.png">
 
 </details>
+
+
+<details>
 <summary>Badges (Major UI changes)</summary>
 
-> [!NOTE]
-> Filtering options are moved into its own window to fix visibility issue.
+Filtering options are moved into its own window to fix visibility issue.
 
 <img src="docs/badges.png"><br/>
 <img src="docs/badgefiltering.png">
 
 </details>
+
+
+<details>
 <summary>Rankings (Major UI changes)</summary>
 
-> [!NOTE]
-> Filtering options are moved into its own window to fix visibility issue.
+Filtering options are moved into its own window to fix visibility issue.
 
 <img src="docs/rankings.png"><br/>
 <img src="docs/rankingfiltering.png">
 
 </details>
+
 
 # How
 
