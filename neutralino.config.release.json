@@ -1,10 +1,10 @@
 {
   "$schema": "https://raw.githubusercontent.com/neutralinojs/neutralinojs/main/schemas/neutralino.config.schema.json",
   "applicationId": "moe.kinnnine.ocd2kki",
-  "version": "4326",
+  "version": "070326",
   "applicationName": "ocd2kki",
   "author": "kinnnine",
-  "description": "unofficial desktop client of Yume 2kki on ynoproject.net (yume nikki online project)",
+  "description": "Unofficial desktop client of Yume 2kki on ynoproject.net (Yume Nikki Online Project)",
   "copyright": "MIT License © kinnnine 2026.",
   "defaultMode": "window",
   "port": 0,

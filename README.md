@@ -1,19 +1,59 @@
 # ocd2kki
 
+> [!NOTE]
+> ocd2kki isn't hosting, stealing or containing any YNOproject or Yume 2kki developers assets or gamedata, except urotsuki.png for the icon inside this repository.
+
 An unofficial desktop client of Yume 2kki on ynoproject.net (Yume Nikki Online Project)
 
 # Screenshots
 
-<img src="docs/menu.png"></br>
-<img src="docs/game.png"></br>
-<img src="docs/settings.png"></br>
-<img src="docs/expeditions.png">
+<details>
+
+<summary>Main Menu</summary>
+
+<img src="docs/menu.png">
+
+</details>
+
+
+<details>
+<summary>In-game</summary>
+
+<img src="docs/game.png">
+
+</details>
+
+<details>
+<summary>Settings (Minor UI changes)</summary>
+
+> [!NOTE]
+> Both login and logout button are moved into settings.
+
+<img src="docs/settings.png">
+
+</details>
+<summary>Badges (Major UI changes)</summary>
+
+> [!NOTE]
+> Filtering options are moved into its own window to fix visibility issue.
+
+<img src="docs/badges.png"><br/>
+<img src="docs/badgefiltering.png">
+
+</details>
+<summary>Rankings (Major UI changes)</summary>
+
+> [!NOTE]
+> Filtering options are moved into its own window to fix visibility issue.
+
+<img src="docs/rankings.png"><br/>
+<img src="docs/rankingfiltering.png">
+
+</details>
 
 # How
 
 ocd2kki is using NeutralinoJS, by using user's available browsers or webview for displaying "[https://ynoproject.net/2kki/](https://ynoproject.net/2kki/)" and inject a custom interface for more "native-like" experience.
-
-ocd2kki isn't hosting or stealing any YNOproject or Yume 2kki developers assets or gamedata.
 
 ocd2kki is open-source at [https://github.com/kinnnine/ocd2kki](https://github.com/kinnnine/ocd2kki)
 
@@ -78,10 +118,10 @@ That's it.
 # Roadmap
 
 - [ ] Able to chat
-- [ ] Toast notification
+- [x] Toast notification
 - [ ] ocd2kki-specific settings
-- [ ] Fix badges floating modal size
-- [ ] Fix right menu buttons position
+- [x] Fix badges floating modal size
+- [x] Fix right menu buttons position
 - [ ] Discord RPC
 - [ ] Supports other fangames from YNOProject
 - [ ] Rewrite in Rust/Tauri
