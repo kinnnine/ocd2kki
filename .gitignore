@@ -8,3 +8,6 @@
 # Neutralinojs related files
 .storage
 *.log
+
+# Node/NPM 
+node_modules

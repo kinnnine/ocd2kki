@@ -1,0 +1,2 @@
+allowBuilds:
+  node-jq@6.3.1: true

@@ -1,0 +1,20 @@
+{
+  "name": "ocd2kki",
+  "version": "1.0.0",
+  "description": "Unofficial desktop client of Yume 2kki on ynoproject.net (Yume Nikki Online Project)",
+  "type": "module",
+  "scripts": {
+    "update-runtime": "neu update",
+    "dev": "neu run",
+    "build": "node syncconfig.js && neu build --embed-resources --config-file=neutralino.config.release.json"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "packageManager": "pnpm@10.28.1",
+  "dependencies": {
+    "@neutralinojs/neu": "^11.7.0",
+    "node-jq": "^6.3.1",
+    "simple-git": "^3.32.3"
+  }
+}
