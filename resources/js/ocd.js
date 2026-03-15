@@ -11,9 +11,46 @@ function ocd() {
     // greeting
     console.log('ocd2kki init!');
 
-    // common
+    // common variables
     const __body = document.body;
     const __yno_2kki_version = document.querySelector("meta[name='2kkiVersion']").content;
+    const __windowWidthOffset = 16
+    const __windowHeightOffset = 39
+    let __ocdDPI = 0
+
+    // config: default config
+    const ocdDefaultConfig = {
+        windowSize: 1
+    }
+
+    // function: config-related: load config from localstorage
+    function ocdLoadConfig() {
+        const loadedConfig = localStorage.getItem("config_ocd2kki");
+        if (loadedConfig) {
+            try {
+                return JSON.parse(loadedConfig);
+            } catch (error) {
+                console.error("Error while parsing config:", error);
+                return ocdDefaultConfig;
+            }
+        }
+        return ocdDefaultConfig;
+    }
+
+    // function: config-related: handy and quick apply config
+    function ocdApplyConfig(config) {
+        u("#ocdWindowSize").first().value = config.windowSize;
+        ocdSetWindowSize(config.windowSize);
+    }
+
+    // function: config-related: save config to localstorage
+    function ocdSaveConfig(config) {
+        localStorage.setItem("config_ocd2kki", JSON.stringify(config));
+    }
+
+    // config: start using ocdConfig
+    let ocdConfig = ocdLoadConfig();
+    ocdSaveConfig(ocdConfig);
 
     // window: set window title
     Neutralino.window.setTitle(`ocd2kki rel.${NL_APPVERSION} - ${__yno_2kki_version} on ynoproject.net/2kki`);
@@ -26,28 +63,26 @@ function ocd() {
     const __ocdGameContainer = document.getElementById('ocdGameContainer');
 
     // ocdGameContainer: canvasContainer
-    var canvasContainer = u("#canvas");
+    let canvasContainer = u("#canvas");
     canvasContainer.attr({
-        style: 'display: block; top: 0px; margin: none; min-width: none; width: 640px; max-width: none; min-height: none; height: 480px; max-height: none; border: 0px; image-rendering: pixelated; outline: none;'
+        style: 'display: block; top: 0px; margin: 0 0; min-width: none; width: 640px; max-width: none; min-height: none; height: 480px; max-height: none; border: 0px; image-rendering: pixelated; outline: none;'
     });
-    const __canvasContainer = document.getElementById('canvas');
-    __ocdGameContainer.appendChild(__canvasContainer);
+    __ocdGameContainer.append(document.getElementById('canvas'));
 
     // ocdGameContainer: gameChatContainer
-    var gameChatContainer = u("#gameChatContainer");
+    let gameChatContainer = u("#gameChatContainer");
     gameChatContainer.attr({
-        style: 'z-index: 1; top: none; left: none; width: 640px; height: 240px; margin-top: none; bottom: 3px;'
+        style: 'z-index: 1; top: none; left: none; width: 640px; height: 240px; margin-top: none; bottom: 0px;'
     });
-    const __gameChatContainer = document.getElementById('gameChatContainer');
-    __ocdGameContainer.appendChild(__gameChatContainer);
+    __ocdGameContainer.append(document.getElementById('gameChatContainer'));
 
     // ocdGameContainer: controls
     //      - dynamic appearance when mouse in enter or leave
     //      - set hidden fullscreen button
     //      - enable fullscreen buttons
-    var controls = u("#controls");
-    var leftControls = u("#leftControls");
-    var rightControls = u("#rightControls");
+    let controls = u("#controls");
+    let leftControls = u("#leftControls");
+    let rightControls = u("#rightControls");
     controls.attr({
         style: 'z-index: 10; opacity: 1; position: fixed; top: 6px; height: 45px;'
     });
@@ -70,12 +105,11 @@ function ocd() {
         leftControls.addClass('hidden');
         rightControls.addClass('hidden');
     });
-    const __controls = document.getElementById('controls');
-    __ocdGameContainer.appendChild(__controls);
+    __ocdGameContainer.append(document.getElementById('controls'));
 
     // ocdGameContainer: toastContainer
     //      - click element to close toast using closeToast
-    var toastContainer = u("#toastContainer");
+    let toastContainer = u("#toastContainer");
     toastContainer.attr({
         class: 'top',
         style: 'z-index: 2; --toast-offset: 0;'
@@ -83,46 +117,73 @@ function ocd() {
     toastContainer.on('click', function(){
         u('#toastContainer').find('.closeToast').trigger('click');
     });
-    const __toastContainer = document.getElementById('toastContainer');
-    __ocdGameContainer.appendChild(__toastContainer);
+    __ocdGameContainer.append(document.getElementById('toastContainer'));
 
     // modalContainer
-    var modalContainer = u("#modalContainer");
-    __body.appendChild(document.getElementById('modalContainer'));
-    __body.appendChild(document.getElementById('modalFadeOutContainer'));
-    __body.appendChild(document.getElementById('confirmModalContainer'));
+    let modalContainer = u("#modalContainer");
+    __body.append(document.getElementById('modalContainer'));
+    __body.append(document.getElementById('modalFadeOutContainer'));
+    __body.append(document.getElementById('confirmModalContainer'));
 
-    // modalContainer: templateModal
-    var templateModal = u("#loginModal").clone();
-    templateModal.attr({
-        id: 'templateModal',
+    // modalContainer: emptyTemplateModal
+    let emptyTemplateModal = u("#loginModal").clone();
+    emptyTemplateModal.attr({
+        id: 'emptyTemplateModal',
         class: 'modal hidden',
         style: 'z-index: 50;'
     });
-    templateModal.find('.modalContent').html('');
-    templateModal.find('.modalHeader').html('');
-    templateModal.find('.modalFooter').html('');
-    modalContainer.prepend(templateModal);
+    emptyTemplateModal.find('.modalContent').html('');
+    emptyTemplateModal.find('.modalHeader').html('');
+    emptyTemplateModal.find('.modalFooter').html('');
+    modalContainer.prepend(emptyTemplateModal);
+
+    // modalContainer: settingTemplateModal
+    let settingTemplateModal = u("#settingsModal").clone();
+    settingTemplateModal.attr({
+        id: 'settingTemplateModal',
+        class: 'modal hidden',
+        style: 'z-index: 50;'
+    });
+    settingTemplateModal.find('.modalContent').html('');
+    settingTemplateModal.find('.modalHeader').html('');
+    settingTemplateModal.find('.modalFooter').html('');
+    modalContainer.prepend(settingTemplateModal);
+
+    // modalContainer: template elements
+    // let templateButton = u('<button>').text('');
 
     // modalContainer: settingsModal
     //      - move login and logout button into settingsModal
     //      - set hidden accountSettingsButtons
-    var accountSettingsButton = u("#accountSettingsButton");
-    var loginButton = u("#loginButton");
-    var logoutButton = u("#logoutButton");
+    //      - add ocd2kki settings button
+    let settingsModal = u("#settingsModal");
+    let accountSettingsButton = u("#accountSettingsButton");
+    let loginButton = u("#loginButton");
+    let logoutButton = u("#logoutButton");
+    settingsModal.addClass('fullscreenModal');
     accountSettingsButton.addClass('hidden');
     loginButton.addClass('hidden');
     logoutButton.addClass('hidden');
-    const __loginButton = document.getElementById('loginButton');
-    const __logoutButton = document.getElementById('logoutButton');
+    let ocd2kkiButton = u('<button>').text('ocd2kki');
+    ocd2kkiButton.attr({
+        id: 'ocd2kkiButton',
+        type: 'button'
+    });
+    ocd2kkiButton.on('click', function(){
+        ocd2kkiModal.toggleClass('hidden');
+    });
+    u("#content").append(ocd2kkiButton);
+    // settingsModal.find('.modalContent').append(ocd2kkiButton.first());
     const __settingsModal = document.getElementById('settingsModal');
     const __settingsModalformButtonRow = __settingsModal.querySelector('.buttonRow');
-    __settingsModalformButtonRow.appendChild(__loginButton);
-    __settingsModalformButtonRow.appendChild(__logoutButton);
+    __settingsModalformButtonRow.append(document.getElementById('loginButton'));
+    __settingsModalformButtonRow.append(document.getElementById('logoutButton'));
+    __settingsModalformButtonRow.prepend(document.getElementById('ocd2kkiButton'));
 
     // modalContainer: badgesModal
     //      - add badgeFilterModal to fix large space
-    var badgeFilterButton = u('<button>').text('Filter');
+    let badgesModal = u("#badgesModal");
+    let badgeFilterButton = u('<button>').text('Filter');
     badgeFilterButton.attr({
         id: 'badgeFilterButton',
         type: 'button'
@@ -130,55 +191,111 @@ function ocd() {
     badgeFilterButton.on('click', function(){
         badgeFilterModal.toggleClass('hidden');
     });
+    u("#content").append(badgeFilterButton);
     u("#badgeGameTabs").addClass('hidden');
-    u("#badgesModal > .modalFooter").append(badgeFilterButton);
+    badgesModal.find('.modalFooter').append(badgeFilterButton.first());
 
     // modalContainer: badgeFilterModal
     //      - move badgeControls into badgeFilterModal
-    var badgeFilterModal = u("#templateModal").clone();
+    let badgeFilterModal = u("#emptyTemplateModal").clone();
     badgeFilterModal.attr('id', 'badgeFilterModal');
     badgeFilterModal.find('.modalClose').on('click', function(){
         badgeFilterModal.toggleClass('hidden');
     });
     modalContainer.prepend(badgeFilterModal);
-    const __badgeControls = document.getElementById('badgeControls');
     const __badgeFilterModal = document.getElementById('badgeFilterModal');
     const __badgeFilterModalContent = __badgeFilterModal.querySelector('.modalContent');
-    __badgeFilterModalContent.appendChild(__badgeControls);
+    __badgeFilterModalContent.append(document.getElementById('badgeControls'));
 
     // modalContainer: rankingsModal
     //      - add rankingFilterModal to fix large space
-    var rankingFilterbutton = u('<button>').text('Filter');
-    rankingFilterbutton.attr({
-        id: 'rankingFilterbutton',
+    let rankingsModal = u("#rankingsModal");
+    let rankingFilterButton = u('<button>').text('Filter');
+    rankingsModal.addClass('fullscreenModal');
+    rankingFilterButton.attr({
+        id: 'rankingFilterButton',
         type: 'button'
     });
-    rankingFilterbutton.on('click', function(){
+    rankingFilterButton.on('click', function(){
         rankingFilterModal.toggleClass('hidden');
     });
-    u('#rankingsModal').addClass('fullscreenModal');
-    u("#rankingsModal > .modalContent").prepend(rankingFilterbutton);
+    u("#content").append(rankingFilterButton);
+    rankingsModal.find('.modalHeader').append(rankingFilterButton.first());
 
     // modalContainer: rankingFilterModal
     //      - move rankingCategoryTabs into rankingFilterModal
-    var rankingFilterModal = u("#templateModal").clone();
+    let rankingFilterModal = u("#emptyTemplateModal").clone();
     rankingFilterModal.attr('id', 'rankingFilterModal');
     rankingFilterModal.find('.modalClose').on('click', function(){
         rankingFilterModal.toggleClass('hidden');
     });
     modalContainer.prepend(rankingFilterModal);
-    const __rankingCategoryTabs = document.getElementById('rankingCategoryTabs');
     const __rankingFilterModal = document.getElementById('rankingFilterModal');
     const __rankingFilterModalContent = __rankingFilterModal.querySelector('.modalContent');
-    __rankingFilterModalContent.appendChild(__rankingCategoryTabs);
+    __rankingFilterModalContent.append(document.getElementById('rankingCategoryTabs'));
 
     // modalContainer: ocd2kkiModal
-    var ocd2kkiModal = u("#templateModal").clone();
+    let ocd2kkiModal = u("#emptyTemplateModal").clone();
+    let ocd2kkiFormControls = u('<ul>');
+    let ocd2kkiWindowSizeSelection = u('<li>');
+    let ocd2kkiFormButtons = u('<li>');
+    let ocd2kkiRestoreDefaultButton = u('<button>').text('Restore to default settings');
     ocd2kkiModal.attr('id', 'ocd2kkiModal');
+    // ocd2kkiModal.addClass('fullscreenModal');
     ocd2kkiModal.find('.modalClose').on('click', function(){
         ocd2kkiModal.toggleClass('hidden');
     });
+    ocd2kkiFormControls.addClass('formControls');
+    ocd2kkiFormButtons.addClass('formControlRow');
+    ocd2kkiFormButtons.addClass('buttonRow');
+    ocd2kkiRestoreDefaultButton.attr({
+        id: 'rankingFilterButton',
+        type: 'button'
+    });
+    ocd2kkiRestoreDefaultButton.on('click', function(){
+        ocdConfig = ocdDefaultConfig;
+        ocdSetWindowSize(ocdConfig.windowSize);
+        ocdSaveConfig(ocdConfig);
+    });
+    ocd2kkiWindowSizeSelection.addClass('formControlRow');
+    ocd2kkiWindowSizeSelection.html('<label for="ocdWindowSize">Window Size</label><div><div><select id="ocdWindowSize" size="4"><option value="1">1x</option><option value="2">2x</option></select></div></div>');
     modalContainer.prepend(ocd2kkiModal);
+    ocd2kkiFormButtons.prepend(ocd2kkiRestoreDefaultButton);
+    ocd2kkiFormControls.prepend(ocd2kkiWindowSizeSelection);
+    ocd2kkiFormControls.append(ocd2kkiFormButtons);
+    u("#content").append(ocd2kkiFormControls);
+    ocd2kkiModal.find('.modalContent').prepend(ocd2kkiFormControls.first());
+    u("#ocdWindowSize").on('change', function(){
+        ocdConfig.windowSize = Number(this.value);
+        ocdSetWindowSize(ocdConfig.windowSize);
+        ocdSaveConfig(ocdConfig);
+    });
+    u("#ocdWindowSize").on('click', function(){
+        u("#ocdWindowSize").trigger('change');
+    });
+
+    // function: window-related: set new window size
+    function ocdSetWindowSize(size) {
+        switch (size) {
+        case 1:
+            canvasContainer.attr({
+                style: 'display: block; top: 0px; margin: 0 0; min-width: none; width: 640px; max-width: none; min-height: none; height: 480px; max-height: none; border: 0px; image-rendering: pixelated; outline: none;',
+                width: 640 * __ocdDPI
+            });
+            break;
+        case 2:
+            canvasContainer.attr({
+                style: 'display: block; top: 0px; margin: 0 0; min-width: none; width: 800px; max-width: none; min-height: none; height: 600px; max-height: none; border: 0px; image-rendering: pixelated; outline: none;',
+                width: 800 * __ocdDPI
+            });
+            break;
+        default:
+            // intentionally left blank
+        }
+    }
+
+    // config: apply config at startup
+    ocdApplyConfig(ocdConfig);
 
     // mutationobserver
     const config = { attributes: true, childList: true, subtree: true };
@@ -186,20 +303,41 @@ function ocd() {
       for (const mutation of mutationList) {
             // mutationobserver: tweak: quit when easyrpg quit from main menu by user
             if (mutation.target.id === 'canvas' && mutation.type === 'attributes') {
-                const canvasWidth = mutation.target.getAttribute('width');
-                const canvasHeight = mutation.target.getAttribute('height');
-                if (canvasWidth === '0' && canvasHeight === '0') {
+                let canvasWidth =  Number(mutation.target.getAttribute('width'));
+                let canvasHeight = Number(mutation.target.getAttribute('height'));
+                // console.log(typeof(dpi));
+                if (canvasWidth === 0 && canvasHeight === 0) {
                     Neutralino.app.exit();
                 }
-            }
+                // mutationobserver: fix: set window size according to the canvas and correcting to dpi scale
+                Neutralino.computer.getDisplays()
+                    .then((output) => {
+                        __ocdDPI = output[0].dpi / 96;
+                        Neutralino.window.setSize({
+                            width: Number(canvasWidth) + __windowWidthOffset * __ocdDPI,
+                            height: Number(canvasHeight) + __windowHeightOffset * __ocdDPI,
+                            minWidth: Number(canvasWidth) + __windowWidthOffset * __ocdDPI,
+                            minHeight: Number(canvasHeight) + __windowHeightOffset * __ocdDPI,
+                            maxWidth: Number(canvasWidth) + __windowWidthOffset * __ocdDPI,
+                            maxHeight: Number(canvasHeight) + __windowHeightOffset * __ocdDPI,
+                            resizable: false
+                        });
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                        return;
+                    });
+                // mutationobserver: workaround: sometimes login and logout buttons won't appear
+                u('#content').addClass('guest');
+            };
             // mutationobserver: fix: scrollbar bug when gameChatContainer's style is changed
             if (mutation.target.id === 'gameChatContainer' && mutation.type === 'attributes' && mutation.attributeName === 'style') {
                 observer.disconnect();
                 gameChatContainer.attr({
-                    style: 'top: none; left: none; width: 640px; height: 240px; margin-top: none; bottom: 3px;'
+                    style: 'top: none; left: none; width: 640px; height: 240px; margin-top: none; bottom: 0px;'
                 });
                 observer.observe(document.documentElement, config);
-            }
+            };
             // mutationobserver: fix: accountRequired buttons appearance
             if (mutation.target.id === 'content' && mutation.type === 'attributes' && mutation.attributeName === 'class') {
                 if (mutation.target.classList.contains('loggedIn')) {
@@ -210,9 +348,9 @@ function ocd() {
                     accountSettingsButton.addClass('hidden');
                     loginButton.removeClass('hidden');
                     logoutButton.addClass('hidden');
-                }
-            }
-        }
+                };
+            };
+        };
     };
     // mutationobserver: start
     const observer = new MutationObserver(callback);

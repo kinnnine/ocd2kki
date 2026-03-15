@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/neutralinojs/neutralinojs/main/schemas/neutralino.config.schema.json",
   "applicationId": "moe.kinnnine.ocd2kki",
-  "version": "070326",
+  "version": "d4e3b6a",
   "applicationName": "ocd2kki",
   "author": "kinnnine",
   "description": "Unofficial desktop client of Yume 2kki on ynoproject.net (Yume Nikki Online Project)",
@@ -21,7 +21,9 @@
   "nativeAllowList": [
     "app.quit",
     "window.setTitle",
-    "window.setSize"
+    "window.setSize",
+    "window.getSize",
+    "comptuer.getDisplays"
   ],
   "nativeBlockList": [
     "filesystem.*",
@@ -30,10 +32,10 @@
   "modes": {
     "window": {
       "title": "ocd2kki",
-      "width": 817,
-      "height": 647,
-      "minWidth": 817,
-      "minHeight": 647,
+      "width": 640,
+      "height": 480,
+      "minWidth": 640,
+      "minHeight": 480,
       "center": true,
       "fullScreen": false,
       "alwaysOnTop": false,
@@ -43,10 +45,14 @@
       "maximize": false,
       "hidden": false,
       "resizable": false,
+      "useLogicalPixels": true,
+      "useSavedState": true,
       "exitProcessOnClose": true,
       "injectGlobals": true,
       "injectClientLibrary": true,
-      "injectScript": "/resources/js/ocd.js"
+      "injectScript": "/resources/js/ocd.js",
+      "dataLocation": "system",
+      "storageLocation": "system"
     },
     "browser": {
       "nativeBlockList": [

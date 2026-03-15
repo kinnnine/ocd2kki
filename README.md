@@ -123,7 +123,7 @@ That's it.
 
 - [ ] Able to chat
 - [x] Toast notification
-- [ ] ocd2kki-specific settings
+- [x] ocd2kki-specific settings
 - [x] Fix badges floating modal size
 - [x] Fix right menu buttons position
 - [ ] Discord RPC
